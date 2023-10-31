@@ -16,6 +16,13 @@
     "plugin"
   ],
   "peerDependencies": {
-    "koishi": "4.15.3"
+    "koishi": "4.15.3",
+    "@koishijs/plugin-console": "^5.16.1",
+    "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "node-fetch": "2.6.7",
+    "socks-proxy-agent": "5.0.1",
+    "express": "4.18.2"
   }
 }

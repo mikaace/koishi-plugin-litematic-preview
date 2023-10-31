@@ -18,6 +18,9 @@
     ]
   },
   "include": [
-    "src"
+    "src",
+    "src/downloadfile.ts",
+    "src/index.ts",
+    "src/web/*"
   ]
 }
