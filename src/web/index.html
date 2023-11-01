@@ -241,6 +241,29 @@
       <!-- open settings panel button -->
       <a href="javascript:void(0)" id="settings-button" class="openbtn" onclick="openSettings()"><i class="fa fa-cog"></i></a>
 
+      <button id="toggleThemeButton">关灯</button>
+
+      <script>
+        // 获取按钮和body元素的引用
+        const toggleThemeButton = document.getElementById('toggleThemeButton');
+        const body = document.body;
+
+        // 检查当前主题并切换
+        toggleThemeButton.addEventListener('click', () => {
+          if (body.style.backgroundColor === 'rgb(255, 255, 255)') {
+            // 切换到暗黑主题
+            body.style.backgroundColor = '#111';
+            body.style.color = '#FFF';
+            document.getElementById('remote-url').style.color = 'white';
+          } else {
+            // 切换到明亮主题
+            body.style.backgroundColor = '#FFF';
+            body.style.color = '#111';
+            document.getElementById('remote-url').style.color = 'black';
+          }
+        });
+      </script>
+
       <div id="settings-panel" class="side-nav">
          <!-- close button -->
          <a href="javascript:void(0)" class="closebtn" onclick="closeSettings()">&times;</a>
