@@ -96,19 +96,18 @@ export async function apply(ctx: Context,Config) {
         }
       }
     });
-    }else{
-    root = "/node_modules/koishi-plugin-litematic-preview/src/web/litematic";
-    access("/node_modules/koishi-plugin-litematic-preview/src/web/litematic", constants.F_OK, (err) => {
-      if (err) {
-        if (err.code === 'ENOENT') {
-          mkdir("/node_modules/koishi-plugin-litematic-preview/src/web/litematic", () => {
-          })
-        } else {
-          return;
-        }
+    }//menu when dev mode
+  /*root = "/node_modules/koishi-plugin-litematic-preview/lib/web/litematic";
+  access("/node_modules/koishi-plugin-litematic-preview/lib/web/litematic", constants.F_OK, (err) => {
+    if (err) {
+      if (err.code === 'ENOENT') {
+        mkdir("/node_modules/koishi-plugin-litematic-preview/lib/web/litematic", () => {
+        })
+      } else {
+        return;
       }
-    });
-  }
+    }
+  });//menu when default start*/
 
   function generateURL(usehttps,filename) {
     const address = Config.address || 'localhost';

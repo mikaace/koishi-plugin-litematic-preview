@@ -1,14 +1,22 @@
 {
   "name": "koishi-plugin-litematic-preview",
   "description": "plugin of koishi,help preview .litematic online",
-  "version": "0.0.1",
+  "version": "1.0.3",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
     "dist"
   ],
+  "contributors": [
+    "mikaace <3259989948@qq.com>"
+  ],
   "license": "MIT",
+  "homepage": "https://github.com/mikaace/koishi-plugin-litematic-preview",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikaace/koishi-plugin-litematic-preview.git"
+  },
   "scripts": {},
   "keywords": [
     "chatbot",

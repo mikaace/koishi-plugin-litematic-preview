@@ -19,6 +19,9 @@
 + 定时删除投影
 + 更新材质资源
 ### Bug
-+ koishi.yml可能会在重载配置时被清空
++ 开发模式下koishi.yml可能会在重载配置时被清空
   ###### 为此已经对其进行备份,自行粘贴内容进koishi.yml后就能重新正常启动koishi
 + 或许还有更多
+### 鸣谢
++ [litematic viewer](https://github.com/endingcredits/litematic-viewer)
++ [deepslate](https://github.com/misode/deepslate)

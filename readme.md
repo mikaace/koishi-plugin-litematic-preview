@@ -19,7 +19,11 @@
 + delete .litematic on time
 + update resource
 ### Bug
-+ somehow cause koishi clear it's Config file "koishi.yml"
++ somehow cause koishi clear it's Config file "koishi.yml" when in dev mode
   ###### already make backup for it when installed
 + more to be found
+***
+### Thanks for
++ [litematic viewer](https://github.com/endingcredits/litematic-viewer)
++ [deepslate](https://github.com/misode/deepslate)
 
