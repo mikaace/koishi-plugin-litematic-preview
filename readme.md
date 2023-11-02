@@ -13,6 +13,7 @@
 ### Use
 + send file in channel and waiting for url send by bot
 + use proxy when nothing shown on page
++ support dc qq kook
 ***
 ### TODO
 + new command to change resource_pack
