@@ -1,10 +1,13 @@
 "use strict";
+import * as https from "https";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 import { Context, Schema } from 'koishi';
 import {writeFile,access,mkdir,constants} from 'node:fs';
-import {downloadWithSocksProxy,httpdownloadFile} from "./downloadfile";
+import {httpsdownload,httpdownloadFile} from "./downloadfile";
 import express from 'express';
 import path from 'path';
+import {backupYamlFile} from "./backupKoishiConfig";
 export const name = 'LitematicPreview';
 export interface Config {
   socksProxyUrl: string
@@ -20,6 +23,7 @@ export const Config: Schema<Config> = Schema.object({
     crt: Schema.string().description("证书.pem")}).collapse(),
 });
 export async function apply(ctx: Context,Config) {
+  backupYamlFile("koishi.yml","koishi.backup.yml" );
   let usehttps = null
   async function exists(Path: string): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
@@ -81,7 +85,7 @@ export async function apply(ctx: Context,Config) {
   }
   let root:string;
   if (exists("external")){
-    root = "/external/litematic-preview/src/web/litematic/";
+    root = "/external/litematic-preview/src/web/litematic";
     access("/external/litematic-preview/src/web/litematic", constants.F_OK, (err) => {
       if (err) {
         if (err.code === 'ENOENT') {
@@ -93,7 +97,7 @@ export async function apply(ctx: Context,Config) {
       }
     });
     }else{
-    root = "/node_modules/koishi-plugin-litematic-preview/src/web/litematic/";
+    root = "/node_modules/koishi-plugin-litematic-preview/src/web/litematic";
     access("/node_modules/koishi-plugin-litematic-preview/src/web/litematic", constants.F_OK, (err) => {
       if (err) {
         if (err.code === 'ENOENT') {
@@ -147,7 +151,7 @@ export async function apply(ctx: Context,Config) {
           const filePath = `.${root}/${session.event._data.d.attachments?.[i]?.filename}`;
           const proxyUrl = Config.socksProxyUrl;
           console.log(' '+ url);
-          downloadWithSocksProxy(proxyUrl,url,filePath);
+          httpsdownload(url,filePath,true,proxyUrl);
           const Filename = session.event._data.d.attachments?.[i]?.filename;
           const generated_url = generateURL(usehttps,Filename);
           session.send(generated_url);
@@ -161,5 +165,26 @@ export async function apply(ctx: Context,Config) {
       return;
     }
   });
+  ctx.platform("kook").exclude(session => session.event.selfId === session.event.user.id).on('message', (session) => {
+    let inputString = session.event.message.content;
+    const urlRegex = /https?:\/\/\S+\.litematic/g;
+    let matches = inputString.match(urlRegex);
+    if (matches) {
+      console.log("接受到投影文件")
+      const filename = session.event.message.content.match(/file\s+title="([^"]+)"/)
+      const filePath = `.${root}/${filename[1]}`;
+      httpsdownload(matches[0],filePath,false);
+      const generated_url = generateURL(usehttps,filename[1]);
+      session.send(generated_url);
+    }else{
+      console.log("非投影kook");
+    }
+
+  });
+  // TODO:a command to change resource_pack
+  // TODO:delete .litematic on time
+  // TODO:update resource
+
+
 }
 

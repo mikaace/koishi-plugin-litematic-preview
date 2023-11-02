@@ -3,12 +3,15 @@ import { promises as fsPromises } from 'fs';
 import {SocksProxyAgent} from 'socks-proxy-agent';
 import {createWriteStream} from "node:fs";
 import http from "http";
-
-export async function downloadWithSocksProxy(proxyUrl,url,filePath) {
+export async function httpsdownload(url: string, filePath: string, useProxy: boolean = false, proxyUrl?: string) {
   try {
-    const fetchResponse = await fetch(url, {
-      agent: new SocksProxyAgent(proxyUrl), // 使用 SOCKS 代理
-    });
+    const fetchOptions: any = {}; // 创建一个可选的 fetch 选项对象
+
+    if (useProxy && proxyUrl) {
+      fetchOptions.agent = new SocksProxyAgent(proxyUrl);
+    }
+
+    const fetchResponse = await fetch(url, fetchOptions);
 
     if (!fetchResponse.ok) {
       throw new Error(`ErrorStatus: ${fetchResponse.status}`);
@@ -22,6 +25,7 @@ export async function downloadWithSocksProxy(proxyUrl,url,filePath) {
     console.error('Download error:', error.message);
   }
 }
+
 export function httpdownloadFile(url, outputPath) {
   const file = createWriteStream(outputPath);
   //http
