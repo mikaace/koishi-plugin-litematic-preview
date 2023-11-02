@@ -3,7 +3,7 @@
 [![npm](https://img.shields.io/npm/v/koishi-plugin-litematic-preview?style=flat-square)](https://www.npmjs.com/package/koishi-plugin-litematic-preview)
 
 ##### koishi插件,为在线预览Minecraft投影文件
-**ENG**|[简体中文](.readme.zh-CN.md)
+**ENG**|[简体中文](./readme.zh-CN.md)
 ***
 ### Disposition
 + 在koishi中安装
