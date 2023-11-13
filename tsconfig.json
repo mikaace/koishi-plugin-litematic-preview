@@ -19,7 +19,7 @@
   },
   "include": [
     "src",
-    "src/index.ts",
+    "src/index.tsx",
     "src/downloadfile.ts",
     "src/web/*"
   ]

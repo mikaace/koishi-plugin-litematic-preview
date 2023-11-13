@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
+<head>
 
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-      <title>Litematic Viewer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <title>Litematic Viewer</title>
 
-      <!-- Deepslate -->
-      <script src="https://unpkg.com/deepslate@0.10.0"></script>
-      <script src="https://unpkg.com/gl-matrix@3.3.0/gl-matrix-min.js"></script>
+    <!-- Deepslate -->
+    <script src="https://unpkg.com/deepslate@0.10.0"></script>
+    <script src="https://unpkg.com/gl-matrix@3.3.0/gl-matrix-min.js"></script>
 
-      <script src="resource/assets.js"></script>
-      <script src="resource/opaque.js"></script>
+    <script src="resource/assets.js"></script>
+    <script src="resource/opaque.js"></script>
 
-      <!-- Materialize -->
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection"/>
+    <!-- Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection"/>
 
-      <!-- Icons -->
-      <script src="https://kit.fontawesome.com/92330e144e.js" crossorigin="anonymous"></script>
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/92330e144e.js" crossorigin="anonymous"></script>
 
-      <style>
-         @media (prefers-color-scheme: light) {
-           body {
-             background: #FFF;
-             color: #111;
-           }
-         }
-
-         @media (prefers-color-scheme: dark) {
-           body {
-             background: #111;
-             color: #FFF;
-           }
-            input#remote-url {
-               color: white;
+    <style>
+        @media (prefers-color-scheme: light) {
+            body {
+                background: #FFF;
+                color: #111;
             }
-         }
+        }
 
-         #viewer {
-             position:fixed;
-             left: 0;
-             top: 0;
-             width: 100%;
-             height: 100%;
-             z-index: -1;
-         }
-         h1 {
-           text-align: center;
-           line-height: 300px;
-         }
-         p {
-           text-align: center;
-           vertical-align: middle;
-           line-height: 30px;
-         }
-      </style>
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: #111;
+                color: #FFF;
+            }
+            input#remote-url {
+                color: white;
+            }
+        }
 
-      <script src="src/litematic-utils.js"></script>
-      <script src="src/script.js"></script>
+        #viewer {
+            position:fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        h1 {
+            text-align: center;
+            line-height: 300px;
+        }
+        p {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 30px;
+        }
+    </style>
 
-      <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-C0DVDW0WXS"></script>
-      <script>
+    <script src="src/litematic-utils.js"></script>
+    <script src="src/script.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C0DVDW0WXS"></script>
+    <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-C0DVDW0WXS');
-      </script>
+    </script>
 
-      <style>
-         .settings-section {
+    <style>
+        .settings-section {
             margin-bottom: 20px;
             display: grid;
             width: fit-content;
@@ -80,18 +80,18 @@
             grid-template-rows: repeat(6, 1fr);
             grid-column-gap: 0px;
             grid-row-gap: 0px;
-         }
+        }
 
-         #settings-button {
+        #settings-button {
             position: absolute;
             top: 0;
             right: 25px;
             font-size: 36px;
             margin-left: 50px;
             z-index: 1;
-         }
+        }
 
-         #settings-panel {
+        #settings-panel {
             height: 100%; /* 100% Full-height */
             width: 0; /* 0 width - change this with JavaScript */
             position: fixed; /* Stay in place */
@@ -103,192 +103,202 @@
             overflow-x: hidden; /* Disable horizontal scroll */
             padding-top: 60px; /* Place content 60px from the top */
             transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-         }
+        }
 
-         /* Position and style the close button (top right corner) */
-         #settings-panel .closebtn {
+        /* Position and style the close button (top right corner) */
+        #settings-panel .closebtn {
             position: absolute;
             top: 0;
             right: 25px;
             font-size: 36px;
             margin-left: 50px;
-         }
-      </style>
+        }
+    </style>
 
-   </head>
+</head>
 
-   <body>
+<body>
 
-      <div id="viewer" width="100%"></div>
+<div id="viewer" width="100%"></div>
 
-      <div id="main-content">
+<div id="main-content">
 
-         <h1>
-           waiting...
-         </h1>
+    <h1>
+        waiting...
+    </h1>
 
-         <div class="row">
-            <div class="col s12">
-               <p class="header light">
-                  Powered by <a href="https://github.com/misode/deepslate">DeepSlate <i class="fa fa-github fa-1x"></i></a>
-               </p>
-               <p>litematic viewer by Ending_Credits <a href="https://github.com/endingcredits/litematic-viewer/">here <i class="fa fa-github"></i></a></p>
-            </div>
-         </div>
+    <div class="row">
+        <div class="col s12">
+            <p class="header light">
+                Powered by <a href="https://github.com/misode/deepslate">DeepSlate <i class="fa fa-github fa-1x"></i></a>
+            </p>
+            <p>litematic viewer by Ending_Credits <a href="https://github.com/endingcredits/litematic-viewer/">here <i class="fa fa-github"></i></a></p>
+        </div>
+    </div>
 
-         <!-- Texture atlas -->
-         <img id="atlas" src="https://raw.githubusercontent.com/misode/deepslate-demo/main/atlas.png" alt="Texture atlas" crossorigin="anonymous" hidden>
+    <!-- Texture atlas -->
+    <img id="atlas" src="https://raw.githubusercontent.com/misode/deepslate-demo/main/atlas.png" alt="Texture atlas" crossorigin="anonymous" hidden>
 
-         <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
-               const urlParams = new URLSearchParams(window.location.search);
-               const remoteUrl = urlParams.get('remote-url');
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const remoteUrl = urlParams.get('remote-url');
 
-               if (remoteUrl) {
-                  console.log("Loading file from", remoteUrl);
-                  readFileURL(remoteUrl);
-               }
-            });
+            if (remoteUrl) {
+                console.log("Loading file from", remoteUrl);
+                readFileURL(remoteUrl);
+            }
+        });
 
-            document.addEventListener("DOMContentLoaded", function(event) {
-              const urlParams = new URLSearchParams(window.location.search);
-              const filename = urlParams.get('file');
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const filename = urlParams.get('file');
 
-              if (filename) {
+            if (filename) {
                 console.log(`Loading ${filename}`);
                 getfromstatic(filename)
-              }
-            });
+            }
+        });
 
-            function getfromstatic(fileName) {
-              const fileURL = `/litematic/${fileName}`;
+        function getfromstatic(fileName) {
+            const fileURL = `/litematic/${fileName}`;
 
-              // 使用fetch来获取文件
-              fetch(fileURL)
+            fetch(fileURL)
                 .then(response => {
-                  if (!response.ok) {
-                    throw new Error(`Failed to fetch file "${fileName}"`);
-                  }
-                  return response.blob();
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch file "${fileName}"`);
+                    }
+                    return response.blob();
                 })
                 .then(blob => {
-                  // 成功获取文件，将它传递给readFile处理
-                  readFile(blob);
+                    readFile(blob);
                 })
                 .catch(error => {
-                  console.error(error);
+                    console.error(error);
                 });
-            }
+        }
 
-            // 调用函数并传递文件名
-            const file = '1.litematic'; // 要查找的文件名
-            findFileAndRead(file);
+        function readFileURL(url, useProxy=true) {
 
-
-            function readFileURL(url, useProxy=true) {
-
-               var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
-               var request = new XMLHttpRequest();
-               request.responseType = 'blob';
-               request.onreadystatechange = function () {
-                  if (request.readyState === XMLHttpRequest.DONE) {
-                     if (request.status === 200) {
+            var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+            var request = new XMLHttpRequest();
+            request.responseType = 'blob';
+            request.onreadystatechange = function () {
+                if (request.readyState === XMLHttpRequest.DONE) {
+                    if (request.status === 200) {
                         console.log("Loaded file from remote url");
                         console.log(request.response);
                         readFile(request.response);
-                     }
-                     else {
+                    }
+                    else {
                         console.log("Error loading litematic");
                         console.log(request);
-                     }
-                  }
-               };
-               request.open('GET', proxyUrl, true);
-               request.send();
-            }
+                    }
+                }
+            };
+            request.open('GET', proxyUrl, true);
+            request.send();
+        }
 
-            function readFile(file) {
-               let reader = new FileReader();
-               reader.readAsArrayBuffer(file);
-               console.log(reader.result);
+        function readFile(file) {
+            let reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            console.log(reader.result);
 
-               reader.onload = function(evt) {
-                  var buff = new Uint8Array(reader.result);
-                  console.log(buff);
+            reader.onload = function(evt) {
+                var buff = new Uint8Array(reader.result);
+                console.log(buff);
 
-                  const nbtdata = deepslate.readNbt(new Uint8Array(reader.result));
-                  console.log("Loaded litematic with NBT data:")
-                  console.log(nbtdata.value);
-                  var litematic = readLitematicFromNBTData(nbtdata);
+                const nbtdata = deepslate.readNbt(new Uint8Array(reader.result));
+                console.log("Loaded litematic with NBT data:")
+                console.log(nbtdata.value);
+                var litematic = readLitematicFromNBTData(nbtdata);
 
-                  createRenderer(structureFromLitematic(litematic));
+                createRenderer(structureFromLitematic(litematic));
 
-                  // Remove input form to stop people submitting twice
-                  const elem = document.getElementById('file-loader-panel');
-                  elem.parentNode.removeChild(elem);
-               };
+                // Remove input form to stop people submitting twice
+                const elem = document.getElementById('file-loader-panel');
+                elem.parentNode.removeChild(elem);
+            };
 
-               reader.onerror = function() {
-                  console.log(reader.error);
-               };
+            reader.onerror = function() {
+                console.log(reader.error);
+            };
 
-            }
+        }
 
-         </script>
+    </script>
 
-      </div>
+</div>
 
-      <!-- open settings panel button -->
-      <a href="javascript:void(0)" id="settings-button" class="openbtn" onclick="openSettings()"><i class="fa fa-cog"></i></a>
+<!-- open settings panel button -->
+<a href="javascript:void(0)" id="settings-button" class="openbtn" onclick="openSettings()"><i class="fa fa-cog"></i></a>
+<!--background controlling button-->
+<style>
+    #toggleThemeButton {
+        background-image: url('resource/lightbulb-off.png'); /* PNG 图片 */
+        background-size: cover; /* 图片大小适应按钮 */
+        width: 80px; /* 按钮宽度 */
+        height: 80px; /* 按钮高度 */
+        border: none; /* 移除边框 */
+        cursor: pointer; /* 鼠标指针样式为手型 */
+    }
+</style>
 
-      <button id="toggleThemeButton">关灯</button>
+<button id="toggleThemeButton"></button>
 
-      <script>
-        // 获取按钮和body元素的引用
-        const toggleThemeButton = document.getElementById('toggleThemeButton');
-        const body = document.body;
+<script>
+    const toggleThemeButton = document.getElementById('toggleThemeButton');
+    const body = document.body;
 
-        // 检查当前主题并切换
-        toggleThemeButton.addEventListener('click', () => {
-          if (body.style.backgroundColor === 'rgb(255, 255, 255)') {
+    // 初始设置为黑色主题（灯泡灭）
+    body.style.backgroundColor = '#111';
+    body.style.color = '#FFF';
+    toggleThemeButton.style.backgroundColor = '#111'; /* 初始按钮颜色 */
+
+    // 检查当前主题并切换
+    toggleThemeButton.addEventListener('click', () => {
+        if (body.style.backgroundColor === 'rgb(255, 255, 255)') {
             // 切换到暗黑主题
             body.style.backgroundColor = '#111';
             body.style.color = '#FFF';
-            document.getElementById('remote-url').style.color = 'white';
-          } else {
+            toggleThemeButton.style.backgroundColor = '#111'; /* 同步按钮颜色 */
+            toggleThemeButton.style.backgroundImage = "url('resource/lightbulb-off.png')";
+        } else {
             // 切换到明亮主题
             body.style.backgroundColor = '#FFF';
             body.style.color = '#111';
-            document.getElementById('remote-url').style.color = 'black';
-          }
-        });
-      </script>
+            toggleThemeButton.style.backgroundColor = '#FFF'; /* 同步按钮颜色 */
+            toggleThemeButton.style.backgroundImage = "url('resource/lightbulb-on.png')";
+        }
+    });
+</script>
 
-      <div id="settings-panel" class="side-nav">
-         <!-- close button -->
-         <a href="javascript:void(0)" class="closebtn" onclick="closeSettings()">&times;</a>
+<div id="settings-panel" class="side-nav">
+    <!-- close button -->
+    <a href="javascript:void(0)" class="closebtn" onclick="closeSettings()">&times;</a>
 
-         <p>Controls</p>
-         <div class="settings-section">
-            <div class="col settings-label">
-               Click-drag to:
+    <p>Controls</p>
+    <div class="settings-section">
+        <div class="col settings-label">
+            Click-drag to:
+        </div>
+        <div class="col">
+
+            <div>
+                <label>
+                    <input name="click-drag" type="radio" class="with-gap setting" data-setting="click-drag" value="move" checked />
+                    <span class="reduced-padding">Move</span>
+                </label>
+                <label>
+                    <input name="click-drag" type="radio" class="with-gap setting" data-setting="click-drag" value="pan" />
+                    <span class="reduced-padding">Pan</span>
+                </label>
             </div>
-            <div class="col">
 
-               <div>
-                  <label>
-                     <input name="click-drag" type="radio" class="with-gap setting" data-setting="click-drag" value="move" checked />
-                     <span class="reduced-padding">Move</span>
-                  </label>
-                  <label>
-                     <input name="click-drag" type="radio" class="with-gap setting" data-setting="click-drag" value="pan" />
-                     <span class="reduced-padding">Pan</span>
-                  </label>
-               </div>
-
-            </div>
-            <div class="col">
-               <div>
+        </div>
+        <div class="col">
+            <div>
 
                   <span class="switch">
                      <label>
@@ -297,10 +307,10 @@
                         Invert
                      </label>
                   </span>
-               </div>
             </div>
+        </div>
 
-            <div class="col">
+        <div class="col">
                <span class="slider">
                   <label class="setting-label">
                      Sensitivity
@@ -309,27 +319,27 @@
                      </p>
                   </label>
                </span>
-            </div>
+        </div>
 
 
-            <div class="col settings-label">
-               Middle-click-drag to:
+        <div class="col settings-label">
+            Middle-click-drag to:
+        </div>
+        <div class="col">
+            <div>
+                <label>
+                    <input name="middle-click-drag" type="radio" class="with-gap setting" data-setting="middle-click-drag" value="move"/>
+                    <span class="reduced-padding">Move</span>
+                </label>
+                <label>
+                    <input name="middle-click-drag" type="radio" class="with-gap setting" data-setting="middle-click-drag" value="pan" checked/>
+                    <span class="reduced-padding">Pan</span>
+                </label>
             </div>
-            <div class="col">
-               <div>
-                  <label>
-                     <input name="middle-click-drag" type="radio" class="with-gap setting" data-setting="middle-click-drag" value="move"/>
-                     <span class="reduced-padding">Move</span>
-                  </label>
-                  <label>
-                     <input name="middle-click-drag" type="radio" class="with-gap setting" data-setting="middle-click-drag" value="pan" checked/>
-                     <span class="reduced-padding">Pan</span>
-                  </label>
-               </div>
 
-            </div>
-            <div class="col">
-               <div>
+        </div>
+        <div class="col">
+            <div>
 
                   <span class="switch">
                      <label>
@@ -338,11 +348,11 @@
                         Invert
                      </label>
                   </span>
-               </div>
-
             </div>
 
-            <div class="col">
+        </div>
+
+        <div class="col">
                <span class="slider">
                   <label class="setting-label">
                      Sensitivity
@@ -351,30 +361,30 @@
                      </p>
                   </label>
                </span>
+        </div>
+
+        <div class="col" style="grid-column: span 4; text-align: center;">
+            These do not work yet:
+        </div>
+
+        <div class="col settings-label">
+            Scroll to:
+        </div>
+        <div class="col">
+            <div>
+                <label>
+                    <input name="scroll" type="radio" class="with-gap setting" data-setting="scroll" value="move" checked />
+                    <span class="reduced-padding">Move</span>
+                </label>
+                <label>
+                    <input name="scroll" type="radio" class="with-gap setting" data-setting="scroll" value="zoom" />
+                    <span class="reduced-padding">Zoom</span>
+                </label>
             </div>
 
-            <div class="col" style="grid-column: span 4; text-align: center;">
-               These do not work yet:
-            </div>
-
-            <div class="col settings-label">
-               Scroll to:
-            </div>
-            <div class="col">
-               <div>
-                  <label>
-                     <input name="scroll" type="radio" class="with-gap setting" data-setting="scroll" value="move" checked />
-                     <span class="reduced-padding">Move</span>
-                  </label>
-                  <label>
-                     <input name="scroll" type="radio" class="with-gap setting" data-setting="scroll" value="zoom" />
-                     <span class="reduced-padding">Zoom</span>
-                  </label>
-               </div>
-
-            </div>
-            <div class="col">
-               <div>
+        </div>
+        <div class="col">
+            <div>
 
                   <span class="switch">
                      <label>
@@ -384,10 +394,10 @@
                      </label>
                   </span>
 
-               </div>
             </div>
+        </div>
 
-            <div class="col">
+        <div class="col">
                <span class="slider">
                   <label class="setting-label">
                      Sensitivity
@@ -396,27 +406,27 @@
                      </p>
                   </label>
                </span>
+        </div>
+
+        <div class="col settings-label">
+            One finger touch drag to:
+        </div>
+        <div class="col">
+            <div>
+                <label>
+                    <input name="touch-drag" type="radio" class="with-gap setting" data-setting="touch-drag" value="move"/>
+                    <span class="reduced-padding">Move</span>
+                </label>
+                <label>
+                    <input name="touch-drag" type="radio" class="with-gap setting" data-setting="touch-drag" value="pan" checked/>
+                    <span class="reduced-padding">Pan</span>
+                </label>
             </div>
 
-            <div class="col settings-label">
-               One finger touch drag to:
-            </div>
-            <div class="col">
-               <div>
-                  <label>
-                     <input name="touch-drag" type="radio" class="with-gap setting" data-setting="touch-drag" value="move"/>
-                     <span class="reduced-padding">Move</span>
-                  </label>
-                  <label>
-                     <input name="touch-drag" type="radio" class="with-gap setting" data-setting="touch-drag" value="pan" checked/>
-                     <span class="reduced-padding">Pan</span>
-                  </label>
-               </div>
+        </div>
+        <div class="col">
 
-            </div>
-            <div class="col">
-
-               <div>
+            <div>
                   <span class="switch">
                      <label>
                         <input type="checkbox" class="setting" data-setting="touch-drag-move-invert" />
@@ -424,11 +434,11 @@
                         Invert
                      </label>
                   </span>
-               </div>
-
             </div>
 
-            <div class="col">
+        </div>
+
+        <div class="col">
                <span class="slider">
                   <label class="setting-label">
                      Sensitivity
@@ -437,27 +447,27 @@
                      </p>
                   </label>
                </span>
+        </div>
+
+        <div class="col settings-label">
+            Two finger touch drag to:
+        </div>
+        <div class="col">
+            <div>
+                <label>
+                    <input name="two-finger-drag" type="radio" class="with-gap setting" data-setting="two-finger-drag" value="move" checked/>
+                    <span class="reduced-padding">Move</span>
+                </label>
+                <label>
+                    <input name="two-finger-drag" type="radio" class="with-gap setting" data-setting="two-finger-drag" value="pan"/>
+                    <span class="reduced-padding">Pan</span>
+                </label>
             </div>
 
-            <div class="col settings-label">
-               Two finger touch drag to:
-            </div>
-            <div class="col">
-               <div>
-                  <label>
-                     <input name="two-finger-drag" type="radio" class="with-gap setting" data-setting="two-finger-drag" value="move" checked/>
-                     <span class="reduced-padding">Move</span>
-                  </label>
-                  <label>
-                     <input name="two-finger-drag" type="radio" class="with-gap setting" data-setting="two-finger-drag" value="pan"/>
-                     <span class="reduced-padding">Pan</span>
-                  </label>
-               </div>
+        </div>
+        <div class="col">
 
-            </div>
-            <div class="col">
-
-               <div>
+            <div>
                   <span class="switch">
                      <label>
                         <input type="checkbox" class="setting" data-setting="gesture-move-invert" />
@@ -465,11 +475,11 @@
                         Invert
                      </label>
                   </span>
-               </div>
-
             </div>
 
-            <div class="col">
+        </div>
+
+        <div class="col">
                <span class="slider">
                   <label class="setting-label">
                      Sensitivity
@@ -478,34 +488,34 @@
                      </p>
                   </label>
                </span>
+        </div>
+
+        <div class="col settings-label">
+            Move with:
+        </div>
+        <div class="col">
+            <div>
+                <label>
+                    <input name="wasd-move" type="checkbox" class="filled-in setting" data-setting="wasd-move" value="checked" checked/>
+                    <span class="reduced-padding">WASD</span>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input name="arrow-move" type="checkbox" class="filled-in setting" data-setting="arrow-move"/>
+                    <span class="reduced-padding">Arrow Keys</span>
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input name="pinch-move" type="checkbox" class="filled-in setting" data-setting="pinch-move" checked/>
+                    <span class="reduced-padding">Pinch</span>
+                </label>
             </div>
 
-            <div class="col settings-label">
-               Move with:
-            </div>
-            <div class="col">
-               <div>
-                  <label>
-                     <input name="wasd-move" type="checkbox" class="filled-in setting" data-setting="wasd-move" value="checked" checked/>
-                     <span class="reduced-padding">WASD</span>
-                  </label>
-               </div>
-               <div>
-                  <label>
-                     <input name="arrow-move" type="checkbox" class="filled-in setting" data-setting="arrow-move"/>
-                     <span class="reduced-padding">Arrow Keys</span>
-                  </label>
-               </div>
-               <div>
-                  <label>
-                     <input name="pinch-move" type="checkbox" class="filled-in setting" data-setting="pinch-move" checked/>
-                     <span class="reduced-padding">Pinch</span>
-                  </label>
-               </div>
-
-            </div>
-            <div class="col" style="grid-column: span 2;">
-               <div>
+        </div>
+        <div class="col" style="grid-column: span 2;">
+            <div>
 
                   <span class="switch">
                      <label>
@@ -515,75 +525,75 @@
                      </label>
                   </span>
 
-               </div>
-
             </div>
-         </div>
 
-         <button class="btn waves-effect waves-light" onclick="resetSettings()">Reset Settings</button>
+        </div>
+    </div>
 
-         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-               var elems = document.querySelectorAll('.setting');
-               for (var i = 0; i < elems.length; i++) {
-                  var elem = elems[i];
-                  loadSetting(elem);
+    <button class="btn waves-effect waves-light" onclick="resetSettings()">Reset Settings</button>
 
-                  elem.addEventListener('change', function() {
-                     if(this.type === 'checkbox') {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.setting');
+            for (var i = 0; i < elems.length; i++) {
+                var elem = elems[i];
+                loadSetting(elem);
+
+                elem.addEventListener('change', function() {
+                    if(this.type === 'checkbox') {
                         this.value = this.checked;
-                     }
-                     localStorage.setItem(this.getAttribute('data-setting'), this.value);
+                    }
+                    localStorage.setItem(this.getAttribute('data-setting'), this.value);
 
-                     console.log('Setting ' + this.getAttribute('data-setting') + ' to ' + this.value);
-                  });
-               }
-            });
-
-            function resetSettings() {
-               localStorage.clear();
-               var elems = document.querySelectorAll('.setting');
-               for (var i = 0; i < elems.length; i++) {
-                  var elem = elems[i];
-                  if(elem.type === 'radio' || elem.type === 'checkbox') {
-                     elem.checked = elem.getAttribute('data-default-value') === 'true' ? 'checked' : '';
-                  } else if(elem.type === 'checkbox') {
-                     elem.value = elem.getAttribute('data-default-value');
-                  }
-               }
+                    console.log('Setting ' + this.getAttribute('data-setting') + ' to ' + this.value);
+                });
             }
-            function loadSetting(elem) {
-               var setting = elem.getAttribute('data-setting');
-               var value = localStorage.getItem(setting);
-               console.log('Loading setting ' + setting + ' with value ' + value);
-               switch (elem.type) {
-                  case 'radio':
-                     elem.setAttribute('data-default-value', elem.checked);
-                     if(value === null) {
+        });
+
+        function resetSettings() {
+            localStorage.clear();
+            var elems = document.querySelectorAll('.setting');
+            for (var i = 0; i < elems.length; i++) {
+                var elem = elems[i];
+                if(elem.type === 'radio' || elem.type === 'checkbox') {
+                    elem.checked = elem.getAttribute('data-default-value') === 'true' ? 'checked' : '';
+                } else if(elem.type === 'checkbox') {
+                    elem.value = elem.getAttribute('data-default-value');
+                }
+            }
+        }
+        function loadSetting(elem) {
+            var setting = elem.getAttribute('data-setting');
+            var value = localStorage.getItem(setting);
+            console.log('Loading setting ' + setting + ' with value ' + value);
+            switch (elem.type) {
+                case 'radio':
+                    elem.setAttribute('data-default-value', elem.checked);
+                    if(value === null) {
                         if (elem.checked) {
-                           localStorage.setItem(setting, elem.value);
+                            localStorage.setItem(setting, elem.value);
                         }
                         return;
-                     }
-                     isChecked = (value === elem.value);
-                     elem.checked = isChecked ? 'checked' : '';
-                     break;
-                  case 'checkbox':
-                     elem.setAttribute('data-default-value', elem.checked);
-                     if(value === null) return;
-                     elem.checked = (value === 'true') ? 'checked' : '';
-                     break;
-                  default:
-                     elem.setAttribute('data-default-value', elem.value);
-                     if(value === null) return;
-                     elem.value = value;
-                     break;
-               }
+                    }
+                    isChecked = (value === elem.value);
+                    elem.checked = isChecked ? 'checked' : '';
+                    break;
+                case 'checkbox':
+                    elem.setAttribute('data-default-value', elem.checked);
+                    if(value === null) return;
+                    elem.checked = (value === 'true') ? 'checked' : '';
+                    break;
+                default:
+                    elem.setAttribute('data-default-value', elem.value);
+                    if(value === null) return;
+                    elem.value = value;
+                    break;
             }
-         </script>
-      </div>
+        }
+    </script>
+</div>
 
-      <!--JavaScript at end of body for optimized loading-->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-   </body>
+<!--JavaScript at end of body for optimized loading-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 </html>

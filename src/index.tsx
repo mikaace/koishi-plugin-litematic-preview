@@ -1,6 +1,4 @@
 "use strict";
-import * as https from "https";
-
 Object.defineProperty(exports, "__esModule", { value: true });
 import { Context, Schema } from 'koishi';
 import {writeFile,access,mkdir,constants} from 'node:fs';
@@ -19,8 +17,8 @@ export const Config: Schema<Config> = Schema.object({
   Domain_name: Schema.string().description("预览url中的域名,解析到公网ip,未配置https不会启用"),
   address: Schema.string().description("本机公网ip"),
   https: Schema.object({
-    key: Schema.string().description("私钥.key"),
-    crt: Schema.string().description("证书.pem")}).collapse(),
+    key: Schema.string().default("key文件命名为private.key放进crt"),
+    crt: Schema.string().default("pem文件命名为certificate.pem放进crt")}).collapse(),
 });
 export async function apply(ctx: Context,Config) {
   backupYamlFile("koishi.yml","koishi.backup.yml" );
@@ -58,30 +56,15 @@ export async function apply(ctx: Context,Config) {
         console.log(`Server is running on https://localhost:${port}`);
       });
     }else{
-      writeFile('crt/private.key', Config.https.key, err => {
-        if (err) {
-          console.error('无法写入 private.key 文件', err);
-          return;
-        }
-        console.log('私钥已成功写入 private.key 文件');
-      });
-      writeFile('crt/certificate.pem', Config.https.crt, err => {
-        if (err) {
-          console.error('无法写入 certificate.pem 文件', err);
-          return;
-        }
-        console.log('私钥已成功写入 certificate.pem 文件');
+      console.log("请提交SSL证书");
+      //process http
+      const app = express();
+      const port = 80;
+      app.use(express.static(path.join(__dirname, 'web')));
+      app.listen(port, () => {
+        console.log(`Server is running on http://localhost:${port}`);
       });
     }
-  }else{
-    console.log("请提交SSL证书");
-    //process http
-    const app = express();
-    const port = 80;
-    app.use(express.static(path.join(__dirname, 'web')));
-    app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
-    });
   }
   let root:string;
   if (exists("external")){
@@ -96,21 +79,9 @@ export async function apply(ctx: Context,Config) {
         }
       }
     });
-    }//menu when dev mode
-  /*root = "/node_modules/koishi-plugin-litematic-preview/lib/web/litematic";
-  access("/node_modules/koishi-plugin-litematic-preview/lib/web/litematic", constants.F_OK, (err) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        mkdir("/node_modules/koishi-plugin-litematic-preview/lib/web/litematic", () => {
-        })
-      } else {
-        return;
-      }
     }
-  });//menu when default start*/
-
   function generateURL(usehttps,filename) {
-    const address = Config.address || 'localhost';
+    const address = usehttps?Config.Domain_name:(Config.address || 'localhost');
     const protocol = usehttps ? 'https' : 'http';
     const fileParam = filename || '';
 
@@ -153,7 +124,8 @@ export async function apply(ctx: Context,Config) {
           httpsdownload(url,filePath,true,proxyUrl);
           const Filename = session.event._data.d.attachments?.[i]?.filename;
           const generated_url = generateURL(usehttps,Filename);
-          session.send(generated_url);
+          const button =<button type="link" href={generated_url}>preview litematic</button>
+          session.send(button);
         }else{
           console.log(" 非投影dc");
           return;
@@ -169,21 +141,19 @@ export async function apply(ctx: Context,Config) {
     const urlRegex = /https?:\/\/\S+\.litematic/g;
     let matches = inputString.match(urlRegex);
     if (matches) {
-      console.log("接受到投影文件")
+      console.log("接收到投影文件")
       const filename = session.event.message.content.match(/file\s+title="([^"]+)"/)
       const filePath = `.${root}/${filename[1]}`;
       httpsdownload(matches[0],filePath,false);
       const generated_url = generateURL(usehttps,filename[1]);
-      session.send(generated_url);
+      const button = <button class="primary" type="link" href={generated_url}>预览投影</button>
+      session.send(button);
     }else{
       console.log("非投影kook");
     }
-
   });
   // TODO:a command to change resource_pack
   // TODO:delete .litematic on time
   // TODO:update resource
-
-
 }
 
