@@ -79,7 +79,20 @@ export async function apply(ctx: Context,Config) {
         }
       }
     });
-    }
+  }else{
+    root = "/node_modules/koishi-plugin-litematic-preview/src/web/litematic";
+    access("/node_modules/koishi-plugin-litematic-preview/src/web/litematic", constants.F_OK, (err) => {
+      if (err) {
+        if (err.code === 'ENOENT') {
+          mkdir("/node_modules/koishi-plugin-litematic-preview/src/web/litematic", () => {
+          })
+        } else {
+          return;
+        }
+      }
+    });
+  }
+
   function generateURL(usehttps,filename) {
     const address = usehttps?Config.Domain_name:(Config.address || 'localhost');
     const protocol = usehttps ? 'https' : 'http';
