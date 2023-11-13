@@ -11,7 +11,7 @@
 + edit Config of plugin
 ***
 ### Use
-+ send file in channel and waiting for url send by bot
++ send file in channel and waiting for url send by bot,now will send button when on dc and kook
 + use proxy when nothing shown on page
 + support dc qq kook
 ***
